@@ -11,11 +11,15 @@ let ifDrawTree = true;
 
 let treeVisible = true;  // To track if the tree is visible or not
 let riverCircleSize = 40;  // Default size for the river circles
+let cylinderColor;  // Variable to hold the color for cylinders
 
 function setup() {
   createCanvas(windowWidth, windowHeight); // Set canvas size to 1000*1000 px
   angleMode(DEGREES); // Use degrees, as opposed to radians, to measure angles
   noLoop(); // Prevent continuous looping as we are drawing a static artwork
+  
+  // Initialize the cylinder color to a random color
+  cylinderColor = color(0, random(50, 100), random(20, 70));
 
   // Calculate cylinder dimensions based on canvas size
   cylinderRadius = width / 50; // Adjust the radius based on the canvas width
@@ -48,6 +52,10 @@ function setup() {
       riverCircles.push(new Circle(x, y, circleSize, blueShade));
     }
    }
+
+ // Add the button event listener for changing cylinder color
+ let colorButton = select('#colorButton');  // Select the button by ID
+ colorButton.mousePressed(changeCylinderColor);
 }
 
 function draw() {
@@ -129,7 +137,8 @@ function drawCylinder(x, y, topHeight) {
   translate(x, y); // Place the cylinder at the specified origin (x,y)
 
   // Draw the side face of the cylinder
-  fill(random(0,100), 130, 70); //Dark shade of green (Change 1)
+  // Use the global cylinderColor variable to fill the cylinder
+  fill(cylinderColor);
   strokeWeight(0.3); //Lighter stroke (Change 1)
   stroke(10); //Grey Stroke color (Change 1)
   
@@ -149,6 +158,12 @@ function drawCylinder(x, y, topHeight) {
   pop();
 }
 
+// Function to change the cylinder color when the button is pressed
+function changeCylinderColor() {
+    cylinderColor = color(random(50, 100), random(120, 180), random(30, 80));  // Random shades of green
+    redraw();  // Redraw after changing color
+  }
+
 // Create Circle class to be used in the River element
 class Circle {
   constructor(x, y, size, color) {
@@ -162,7 +177,7 @@ class Circle {
   display() {
     fill(this.color);
     stroke(255); 
-    strokeWeight(0.5); //Make stroke thinner 
+    strokeWeight(0.5); //Make stroke thinner (Change 1)
     ellipse(this.x, this.y, this.size, this.size);
 
     // Use a random value between 0 and 1 to determine whether to draw a spiral or inner circles
