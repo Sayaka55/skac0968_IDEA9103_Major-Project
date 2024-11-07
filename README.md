@@ -29,7 +29,7 @@ While not many changes were made to the group code, a few adjustments were imple
 
 Each of these interactions allows the user to change different elements in the scene, reflecting changes over time and adjusting the visual elements dynamically.
 
-##Inspiration##
+## **Inspiration**
 I was inspired by Vincent Van Gogh’s “Starry Night” which we examined for the group piece and also another one of his artworks “Wheat Field with Cypresses”. The contrast between night and day inspired me to create something that could express a similar change through user input interactions. Each of the interactions allows the user to change different elements in the scene, reflecting changes over time and adjusting the visual elements dynamically.
 
 - Inspiration 1 - *Wheat Field with Cypresses*
