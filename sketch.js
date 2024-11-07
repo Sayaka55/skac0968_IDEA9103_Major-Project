@@ -1,5 +1,4 @@
 // Define the radius, number of rows, and number of columns for the cylinders in the Grass element
-//Change number and size of cylinders (Change 1)
 let cylinderRadius;
 let cylinderRows;
 let cylinderCols;
@@ -9,6 +8,9 @@ let riverCircles = [];
 
 // Create a boolean variable to control when the Tree element is drawn
 let ifDrawTree = true;
+
+let treeVisible = true;  // To track if the tree is visible or not
+let riverCircleSize = 40;  // Default size for the river circles
 
 function setup() {
   createCanvas(windowWidth, windowHeight); // Set canvas size to 1000*1000 px
@@ -67,13 +69,13 @@ function draw() {
 
   // Draw the River element
   for (let circle of riverCircles) {
+    circle.size = riverCircleSize;  // Adjust the size of the river circles
     circle.display();
   }
 
-  // Draw the Tree element
-  if (ifDrawTree) {
-    drawTree(width/1.6, height * 0.7, -90, 9); // Start from the bottom middle, pointing upwards
-    ifDrawTree = false; 
+  // Draw the Tree element if it's visible
+  if (treeVisible) {
+    drawTree(width / 1.6, height * 0.7, -90, 9); 
   }
 }
 
@@ -83,6 +85,25 @@ function windowResized() {
   ifDrawTree = true; 
   redraw(); // ensures all elements resize and reposition after resizing the window.
 }
+
+// Mouse interaction: Modify river circle size based on mouse position
+function mouseDragged() {
+    // Update the size of the river circles based on the horizontal position of the mouse
+    riverCircleSize = map(mouseX, 0, width, 10, 100);
+    redraw();  // Redraw after changing the size
+  }
+  
+  //Key interaction: Toggle visibility of the tree with the "T" key
+  //Toggle enables elements to appear and disappear 
+  //The keyPressed() function toggles the visibility of the tree when the user presses the 'T' or 't' key by flipping the value of the treeVisible variable. 
+  //If treeVisible is true, the tree is hidden, and if it's false, the tree is shown.
+  //https://www.geeksforgeeks.org/how-to-toggle-between-hiding-and-showing-an-element-using-javascript/
+  function keyPressed() {
+    if (key === 'T' || key === 't') {
+      treeVisible = !treeVisible;  // Toggle visibility of the tree
+      redraw();  // Redraw after toggling visibility
+    }
+  }
 
 // Create a function to draw the Grass element using cylinders
 function drawGrass() {
@@ -141,7 +162,7 @@ class Circle {
   display() {
     fill(this.color);
     stroke(255); 
-    strokeWeight(0.5); //Make stroke thinner (Change 1)
+    strokeWeight(0.5); //Make stroke thinner 
     ellipse(this.x, this.y, this.size, this.size);
 
     // Use a random value between 0 and 1 to determine whether to draw a spiral or inner circles
