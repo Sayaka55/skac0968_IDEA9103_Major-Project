@@ -1,5 +1,4 @@
 // Define the radius, number of rows, and number of columns for the cylinders in the Grass element
-//Change number and size of cylinders (Change 1)
 let cylinderRadius;
 let cylinderRows;
 let cylinderCols;
@@ -14,6 +13,9 @@ let treeVisible = true;  // To track if the tree is visible or not
 let riverCircleSize = 40;  // Default size for the river circles
 let cylinderColor;  // Variable to hold the color for cylinders
 let skyBrightness = 0.2;  // Initial brightness for the sky (from 0 to 1)
+
+let treeScale = 1;  // Variable to scale the size of the tree
+let treeRotation = 0;  // Variable to rotate the tree
 
 function setup() {
   createCanvas(windowWidth, windowHeight); // Set canvas size to 1000*1000 px
@@ -41,7 +43,7 @@ function setup() {
       let x = width - i * random(5, 10); 
 
       // Set a base y-position in the lower part of the canvas and add curving effects
-      let baseY = height * 0.7;
+      let baseY = height * 0.6;
       let yOffset = sin(map(i, 0, 40, 0, PI)) * 100; // Stronger sine wave for curvature
       let rowOffset = j * random(5, 15); // Add variation for each row
       let downwardSlope = i * random(2, 4);  // Increase downward slope gradually
@@ -61,6 +63,7 @@ function setup() {
 }
 
 function draw() {
+  background(240, 255, 255);
   // Draw the Sky element
   drawGradientSky();
   drawCelestialBodies();
@@ -85,7 +88,12 @@ function draw() {
 
   // Draw the Tree element if it's visible
   if (treeVisible) {
-    drawTree(width / 1.6, height * 0.7, -90, 9); 
+    push();
+    translate(width / 3, height * 0.75);
+    rotate(treeRotation);  // Apply rotation
+    scale(treeScale);  // Apply scaling
+    drawTree(0, 0, -90, 9);  // Draw the tree at the center with adjustments
+    pop();
   }
 }
 
@@ -116,6 +124,21 @@ function mouseDragged() {
     if (key === 'T' || key === 't') {
       treeVisible = !treeVisible;  // Toggle visibility of the tree
       redraw();  // Redraw after toggling visibility
+      
+      //Here it will check if the left arrow key is pressed and, if so, decreases the treeRotation by 5 degrees to rotate the tree counter-clockwise, 
+      //then calls redraw() to update the display the tree.
+      } else if (keyCode === LEFT_ARROW) {
+        treeRotation -= 5;  // Rotate the tree counter-clockwise
+        redraw();  // Redraw after rotating
+      } else if (keyCode === RIGHT_ARROW) {
+        treeRotation += 5;  // Rotate the tree clockwise
+        redraw();  // Redraw after rotating
+      } else if (keyCode === UP_ARROW) {
+        treeScale *= 1.1;  // Increase the tree size
+        redraw();  // Redraw after scaling
+      } else if (keyCode === DOWN_ARROW) {
+        treeScale /= 1.1;  // Decrease the tree size
+        redraw();  // Redraw after scaling
     }
   }
 
@@ -292,7 +315,7 @@ function drawTreeCircles(x, y, number) {
 function drawGradientSky() {
   for (let y = 0; y <= height; y++) {
     let gradient = map(y, 0, height, 0, 1);
-    let skycolor = lerpColor(color(25, 10, 100), color(50, 50, 50), gradient);
+    let skycolor = lerpColor(color(0, 0, 128), color(255, 223, 186), gradient); // Sky blue to soft sunset yellow
     /* A funtion that helps interpolates between these two colours
     this lerp function and how to make gradient was adapted from by Patt Vira
     https://www.youtube.com/watch?v=lPgscmgxcH0 */
