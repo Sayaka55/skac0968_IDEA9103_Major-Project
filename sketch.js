@@ -23,7 +23,7 @@ function setup() {
   noLoop(); // Prevent continuous looping as we are drawing a static artwork
   
   // Initialize the cylinder color to a random color
-  cylinderColor = color(0, random(50, 100), random(20, 70));
+  cylinderColor = color(random(0, 50), random(50, 150), random(20, 100));
 
   // Calculate cylinder dimensions based on canvas size
   cylinderRadius = width / 50; // Adjust the radius based on the canvas width
@@ -196,8 +196,8 @@ function drawCylinder(x, y, topHeight) {
 
 // Function to change the cylinder color when the button is pressed
 function changeCylinderColor() {
-    cylinderColor = color(random(50, 100), random(120, 180), random(30, 80));  // Random shades of green
-    redraw();  // Redraw after changing color
+  cylinderColor = color(random(0, 50), random(50, 150), random(20, 100));// Random shades of green
+  redraw();  // Redraw after changing color
   }
 
 // Create Circle class to be used in the River element
