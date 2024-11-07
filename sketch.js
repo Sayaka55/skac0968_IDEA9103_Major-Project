@@ -125,7 +125,9 @@ function mouseDragged() {
       treeVisible = !treeVisible;  // Toggle visibility of the tree
       redraw();  // Redraw after toggling visibility
       
-      //Here it will check if the left arrow key is pressed and, if so, decreases the treeRotation by 5 degrees to rotate the tree counter-clockwise, 
+      //Here it will check if the left or right arrow key is pressed 
+      //left will decreases the treeRotation by 5 degrees to rotate the tree counter-clockwise, 
+      //right will increase the treeRotation by 5 degrees to rotate the tree clockwise. 
       //then calls redraw() to update the display the tree.
       } else if (keyCode === LEFT_ARROW) {
         treeRotation -= 5;  // Rotate the tree counter-clockwise
@@ -133,6 +135,11 @@ function mouseDragged() {
       } else if (keyCode === RIGHT_ARROW) {
         treeRotation += 5;  // Rotate the tree clockwise
         redraw();  // Redraw after rotating
+
+      //Here it will check if the up or down arrow key is pressed 
+      //up will increase the tree size by 1.1
+      //down will decrease the tree size by 1.1 
+      //then calls redraw() to update the display the tree.  
       } else if (keyCode === UP_ARROW) {
         treeScale *= 1.1;  // Increase the tree size
         redraw();  // Redraw after scaling
