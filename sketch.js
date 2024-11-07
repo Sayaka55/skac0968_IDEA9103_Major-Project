@@ -1,4 +1,5 @@
 // Define the radius, number of rows, and number of columns for the cylinders in the Grass element
+//Change number and size of cylinders (Change 1)
 let cylinderRadius;
 let cylinderRows;
 let cylinderCols;
@@ -12,6 +13,7 @@ let ifDrawTree = true;
 let treeVisible = true;  // To track if the tree is visible or not
 let riverCircleSize = 40;  // Default size for the river circles
 let cylinderColor;  // Variable to hold the color for cylinders
+let skyBrightness = 0.2;  // Initial brightness for the sky (from 0 to 1)
 
 function setup() {
   createCanvas(windowWidth, windowHeight); // Set canvas size to 1000*1000 px
@@ -98,7 +100,11 @@ function windowResized() {
 function mouseDragged() {
     // Update the size of the river circles based on the horizontal position of the mouse
     riverCircleSize = map(mouseX, 0, width, 10, 100);
-    redraw();  // Redraw after changing the size
+    
+    // Adjust the sky brightness based on the mouseX position
+    skyBrightness = map(mouseX, 0, width, 0, 2);  // Brightness will vary from 0 to 2
+
+    redraw();  // Redraw 
   }
   
   //Key interaction: Toggle visibility of the tree with the "T" key
@@ -290,6 +296,13 @@ function drawGradientSky() {
     /* A funtion that helps interpolates between these two colours
     this lerp function and how to make gradient was adapted from by Patt Vira
     https://www.youtube.com/watch?v=lPgscmgxcH0 */
+
+    // Modify the sky color based on the skyBrightness value
+    skycolor = color(
+        red(skycolor) * skyBrightness, 
+        green(skycolor) * skyBrightness, 
+        blue(skycolor) * skyBrightness
+    );
 
     stroke(skycolor);
     line(0, y, width, y); // Draw a line on canvas for each y value. This fills the background with the gradient.
