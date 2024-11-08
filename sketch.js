@@ -1,5 +1,5 @@
 // Define the radius, number of rows, and number of columns for the cylinders in the Grass element
-let cylinderRadius;
+let cylinderRadius = 5;
 let cylinderRows;
 let cylinderCols;
 
@@ -12,7 +12,7 @@ let ifDrawTree = true;
 let treeVisible = true;  // To track if the tree is visible or not
 let riverCircleSize = 40;  // Default size for the river circles
 let cylinderColor;  // Variable to hold the color for cylinders
-let skyBrightness = 0.2;  // Initial brightness for the sky (from 0 to 1)
+let skyBrightness = 1;  // Initial brightness for the sky (from 0 to 1)
 
 let treeScale = 1;  // Variable to scale the size of the tree
 let treeRotation = 0;  // Variable to rotate the tree
@@ -26,7 +26,6 @@ function setup() {
   cylinderColor = color(random(0, 50), random(50, 150), random(20, 100));
 
   // Calculate cylinder dimensions based on canvas size
-  cylinderRadius = width / 50; // Adjust the radius based on the canvas width
   cylinderRows = Math.floor(height / (cylinderRadius * 0.6));
   cylinderCols = Math.floor(width / (cylinderRadius * 1.2));
 
@@ -278,7 +277,7 @@ class Circle {
 function drawTree(x, y, angle, number) {
   if (number > 0) {
     // Draw the main branch
-    strokeWeight(map(number, 0, 10, 1, 8)); //Made branch thicker
+    strokeWeight(map(number, 0, 10, 1, 4)); //Made branch thicker
     let length = map(number, 0, 10, height / 50, height / 10); //mapped to a proportion of height
     let x2 = x + cos(angle) * length;
     let y2 = y + sin(angle) * length;
