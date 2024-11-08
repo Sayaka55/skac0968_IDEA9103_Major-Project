@@ -57,6 +57,9 @@ function setup() {
    }
 
  // Add the button event listener for changing cylinder color
+ // Used built in event handlers
+ // https://www.geeksforgeeks.org/p5-js-events-complete-reference/
+ // https://editor.p5js.org/dansakamoto/sketches/r1tT87QKm 
  let colorButton = select('#colorButton');  // Select the button by ID
  colorButton.mousePressed(changeCylinderColor);
 }
